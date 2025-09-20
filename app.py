@@ -1,6 +1,16 @@
 from flask import Flask, render_template, request
+import mysql.connector
 
 app = Flask(__name__)
+
+# Database connection function
+def get_db_connection():
+    return mysql.connector.connect(
+        host="192.168.0.174",      # or your MySQL server IP
+        user="dockeruser",           # change if you created a new user
+        password="StrongPassword123",  # replace with your MySQL root/user password
+        database="dockerdb"
+    )
 
 @app.route("/", methods=["GET", "POST"])
 def bmi_calculator():
@@ -24,6 +34,17 @@ def bmi_calculator():
 
             if height_m and weight:
                 bmi = round(weight / (height_m ** 2), 2)
+
+                # Save record to database
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                cursor.execute(
+                    "INSERT INTO bmi_records (height, unit, weight, bmi) VALUES (%s, %s, %s, %s)",
+                    (height, unit, weight, bmi)
+                )
+                conn.commit()
+                cursor.close()
+                conn.close()
 
         except ValueError:
             bmi = "Invalid input. Please enter numbers only."
