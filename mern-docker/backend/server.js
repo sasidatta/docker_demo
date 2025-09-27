@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: '*' // allows all origins; for production, restrict to frontend URL
+}));
+
 app.use(express.json());
 
 mongoose.connect('mongodb://mongo:27017/mern_db', {
