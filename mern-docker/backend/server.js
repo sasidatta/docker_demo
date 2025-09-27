@@ -3,29 +3,30 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-
-// Enable CORS for all origins (development)
 app.use(cors());
-
-// parse JSON bodies
 app.use(express.json());
 
-mongoose.connect('mongodb://mongo:27017/mern', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+mongoose.connect('mongodb://mongo:27017/mern_db', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('MongoDB connected'));
+
+const userSchema = new mongoose.Schema({
+    email: String,
+    mobile: String
 });
 
-// Sample model
-const Item = mongoose.model('Item', new mongoose.Schema({ name: String }));
+const User = mongoose.model('User', userSchema);
 
-app.get('/api/items', async (_, res) => {
-  const items = await Item.find();
-  res.json(items);
-});
-
-app.post('/api/items', async (req, res) => {
-  const item = await Item.create(req.body);
-  res.json(item);
+app.post('/users', async (req, res) => {
+    const { email, mobile } = req.body;
+    try {
+        const user = new User({ email, mobile });
+        await user.save();
+        res.json({ message: 'User created successfully!' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error creating user' });
+    }
 });
 
 app.listen(5000, () => console.log('Backend running on port 5000'));
