@@ -24,5 +24,25 @@
     {% if bmi %}
         <h3>Your BMI is: {{ bmi }}</h3>
     {% endif %}
+
+    {% if records %}
+        <h3>Existing BMI Records</h3>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Height</th>
+                <th>Unit</th>
+                <th>Weight (kg)</th>
+                <th>BMI</th>
+            </tr>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td>{{ record[1] }}</td>
+                    <td>{{ record[2] }}</td>
+                    <td>{{ record[3] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 </body>
 </html>

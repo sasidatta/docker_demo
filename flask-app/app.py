@@ -15,6 +15,8 @@ def get_db_connection():
 @app.route("/", methods=["GET", "POST"])
 def bmi_calculator():
     bmi = None
+    records = []  # List to store existing BMI records
+
     if request.method == "POST":
         height = request.form.get("height")
         unit = request.form.get("unit")
@@ -49,7 +51,19 @@ def bmi_calculator():
         except ValueError:
             bmi = "Invalid input. Please enter numbers only."
 
-    return render_template("index.html", bmi=bmi)
+    # Fetch all BMI records from database
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT height, unit, weight, bmi FROM bmi_records ORDER BY id DESC")
+        records = cursor.fetchall()
+        cursor.close()
+        conn.close()
+    except:
+        records = []
+
+    return render_template("index.html", bmi=bmi, records=records)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
