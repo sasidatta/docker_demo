@@ -20,13 +20,20 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    
-    - name: Build the Docker image
-      run: |
-        cd mern-docker/backend
-        docker build . --file Dockerfile --tag sasidatta/mern:${{ github.sha }}
-
+  
     - name: Push to Docker Hub
       run: docker push sasidatta/mern:${{ github.sha }}
 
-      
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+      with:
+          image-ref: 'sasidatta/mern:${{ github.sha }}}'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+          sarif_file: 'trivy-results.sarif'
