@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
-// Allow requests from all origins (for development)
+// Allow requests from all origins (for development env)
 app.use(cors({
     origin: '*' // In production, replace '*' with your frontend URL
 }));
