@@ -20,6 +20,12 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+        
+    - name: Build the Docker image
+      run: |
+        cd mern-docker/backend
+        docker build . --file Dockerfile --tag sasidatta/mern:${{ github.sha }}
   
     - name: Push to Docker Hub
       run: docker push sasidatta/mern:${{ github.sha }}
