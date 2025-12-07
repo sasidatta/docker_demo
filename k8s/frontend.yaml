@@ -12,14 +12,15 @@ spec:
       labels:
         app: frontend
     spec:
+      nodeSelector:
+        arch: amd64
       containers:
       - name: frontend
         image: sasidatta/mern-docker-frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-nodeSelector:
-  arch: amd64
+
 
 ---
 apiVersion: v1
