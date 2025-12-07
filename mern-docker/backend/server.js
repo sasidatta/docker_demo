@@ -12,11 +12,12 @@ app.use(cors({
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://mongo:27017/mern_db', {
+const mongoUrl = process.env.MONGO_URL || 'mongodb://mongo:27017/mern_db';
+mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+    .catch(err => console.error('MongoDB connection error:', err));
 
 // Define User schema
 const userSchema = new mongoose.Schema({
