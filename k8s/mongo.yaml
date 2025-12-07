@@ -24,7 +24,6 @@ spec:
       volumes:
       - name: mongo-storage
         emptyDir: {} # Using emptyDir for demo. Use PVCs for persistence.
-
 ---
 apiVersion: v1
 kind: Service
