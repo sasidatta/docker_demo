@@ -4,7 +4,8 @@ import './App.css';
 function App() {
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({ email: '', mobile: '' });
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState({ type: '', msg: '' });
+  const [loading, setLoading] = useState(false);
 
   const fetchUsers = async () => {
     try {
@@ -14,7 +15,7 @@ function App() {
       setUsers(data);
     } catch (err) {
       console.error(err);
-      setStatus('Error fetching users');
+      setStatus({ type: 'error', msg: 'Failed to load users.' });
     }
   };
 
@@ -24,63 +25,92 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('Submitting...');
+    setLoading(true);
+    setStatus({ type: '', msg: '' });
+
     try {
       const res = await fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+
       if (!res.ok) throw new Error('Failed to create');
+
       const data = await res.json();
-      setStatus(data.message || 'Success');
+      setStatus({ type: 'success', msg: data.message || 'User created successfully!' });
       setFormData({ email: '', mobile: '' });
       fetchUsers();
     } catch (err) {
       console.error(err);
-      setStatus('Error creating user');
+      setStatus({ type: 'error', msg: 'Error creating user. Please try again.' });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="App">
-      <h1>MERN Docker Demo</h1>
+      <header className="header">
+        <h1>User Management</h1>
+        <p>Production-Ready MERN Stack Demo</p>
+      </header>
 
       <div className="card">
-        <h2>Add User</h2>
+        <h2>Add New User</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
+            <label htmlFor="email">Email Address</label>
             <input
+              id="email"
               type="email"
-              placeholder="Email"
+              placeholder="john@example.com"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
             />
           </div>
           <div className="form-group">
+            <label htmlFor="mobile">Mobile Number</label>
             <input
+              id="mobile"
               type="tel"
-              placeholder="Mobile"
+              placeholder="+1 234 567 8900"
               value={formData.mobile}
               onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
               required
             />
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" className="primary-btn" disabled={loading}>
+            {loading ? 'Processing...' : 'Add User'}
+          </button>
         </form>
-        {status && <p className="status">{status}</p>}
+        {status.msg && (
+          <div className={`status-msg ${status.type}`}>
+            {status.msg}
+          </div>
+        )}
       </div>
 
       <div className="card">
-        <h2>Users List</h2>
+        <h2>Registered Users</h2>
         {users.length === 0 ? (
-          <p>No users found</p>
+          <div className="empty-state">
+            No users found. Add one to get started!
+          </div>
         ) : (
           <ul className="user-list">
             {users.map((user, i) => (
-              <li key={i}>
-                <strong>{user.email}</strong> - {user.mobile}
+              <li key={i} className="user-item">
+                <div className="user-row">
+                  <div className="user-avatar">
+                    {user.email.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="user-info">
+                    <span className="user-email">{user.email}</span>
+                    <span className="user-mobile">{user.mobile}</span>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
