@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: sasidatta/mern-docker-frontend:latest
+        image: sasidatta/mern-docker-frontend:5bcc1d2968da5af161d3e975e211c2749acb9145
         imagePullPolicy: Always
         ports:
         - containerPort: 80
