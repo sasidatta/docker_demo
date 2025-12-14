@@ -12,8 +12,6 @@ spec:
       labels:
         app: frontend
     spec:
-      nodeSelector:
-        arch: amd64
       containers:
       - name: frontend
         image: sasidatta/mern-docker-frontend:latest
@@ -33,4 +31,3 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 30080

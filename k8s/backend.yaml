@@ -12,8 +12,6 @@ spec:
       labels:
         app: backend
     spec:
-      nodeSelector:
-        arch: amd64
       containers:
       - name: backend
         image: sasidatta/mern-docker-backend:latest
