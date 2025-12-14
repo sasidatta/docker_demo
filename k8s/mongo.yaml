@@ -11,8 +11,6 @@ spec:
       labels:
         app: mongo
     spec:
-      nodeSelector:
-        arch: amd64
       containers:
       - name: mongo
         image: mongo:4.4.18
