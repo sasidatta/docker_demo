@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: frontend
@@ -12,6 +12,15 @@ spec:
       labels:
         app: frontend
     spec:
+      affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+              - matchExpressions:
+                - key: size
+                  operator: In
+                  values:
+                  - big
       containers:
       - name: frontend
         image: sasidatta/mern-docker-frontend:5bcc1d2968da5af161d3e975e211c2749acb9145
