@@ -10,10 +10,7 @@ spec:
   containers:
   - name: busybox
     image: busybox:latest
-    command:
-        - ls
-        - "-l"
-        - "/etc/secret-volume"
+    command: ["sh", "-c", "echo Pod started; sleep 3600"]
     volumeMounts:
       - name: secret-volume
         readOnly: true
