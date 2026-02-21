@@ -1,4 +1,3 @@
-sasi@k8s-master:~/docker_demo/k8s$ cat backend.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:

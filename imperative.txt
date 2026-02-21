@@ -1,2 +1,3 @@
   kubectl create configmap democm --from-literal=app=demo --from-literal=live=true
 
+kubectl exec -it mongo-pod -- mongosh -u admin -p StrongPass123 --authenticationDatabase admin
