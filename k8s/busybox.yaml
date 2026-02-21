@@ -3,10 +3,18 @@ kind: Pod
 metadata:
   name: busybox-pod
 spec:
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: sasisecret
   containers:
   - name: busybox
     image: busybox:latest
-    command: ["sh", "-c", "echo Pod started; sleep 3600"]
-    envFrom:
-      - configMapRef:
-          name: democm
+    command:
+        - ls
+        - "-l"
+        - "/etc/secret-volume"
+    volumeMounts:
+      - name: secret-volume
+        readOnly: true
+        mountPath: "/etc/secret-volume"
