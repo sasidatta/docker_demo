@@ -7,3 +7,6 @@ spec:
   - name: busybox
     image: busybox:latest
     command: ["sh", "-c", "echo Pod started; sleep 3600"]
+    envFrom:
+      - configMapRef:
+          name: democm
