@@ -1,9 +1,10 @@
+sasi@k8s-master:~/docker_demo/k8s$ cat backend.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: backend
@@ -12,9 +13,23 @@ spec:
       labels:
         app: backend
     spec:
+      affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+              - matchExpressions:
+                - key: size
+                  operator: In
+                  values:
+                  - big
+      tolerations:
+        - key: "gpu"
+          operator: "Equal"
+          value: "true"
+          effect: "NoExecute"
       containers:
       - name: backend
-        image: sasidatta/mern-docker-backend:latest
+        image: sasidatta/mern-docker-backend:5bcc1d2968da5af161d3e975e211c2749acb9145
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -57,3 +72,4 @@ spec:
   ports:
   - port: 5000
     targetPort: 5000
+
