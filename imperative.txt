@@ -1,0 +1,2 @@
+  kubectl create configmap democm --from-literal=app=demo --from-literal=live=true
+
