@@ -19,8 +19,33 @@ spec:
         ports:
         - containerPort: 5000
         env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_USERNAME
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_PASSWORD
+        - name: MONGO_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: MONGO_HOST
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: MONGO_PORT
+        - name: MONGO_DB
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: MONGO_DB_NAME
         - name: MONGO_URL
-          value: "mongodb://mongo:27017/mern"
+          value: "mongodb://$(DB_USER):$(DB_PASS)@$(MONGO_HOST):$(MONGO_PORT)/$(MONGO_DB)?authSource=admin"
 ---
 apiVersion: v1
 kind: Service
