@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ping-default
+spec:
+  containers:
+  - name: pinger
+    image: ping-demo
+    imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ping-google
+spec:
+  containers:
+  - name: pinger
+    image: ping-demo
+    imagePullPolicy: Never
+    # Overriding CMD using 'args'
+    args: ["google.com"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ping-shell
+spec:
+  containers:
+  - name: pinger
+    image: ping-demo
+    imagePullPolicy: Never
+    # Overriding ENTRYPOINT using 'command'
+    # This ignores CMD and runs a shell instead
+    command: ["sh"]
+    args: ["-c", "echo 'I am a shell now' && sleep 10"]
