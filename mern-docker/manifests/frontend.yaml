@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: sasidatta/mern-docker-frontend:5bcc1d2968da5af161d3e975e211c2749acb9145
-        imagePullPolicy: Always
+        image: mern-frontend:local
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         readinessProbe:
@@ -30,26 +30,18 @@ spec:
             port: 80
           initialDelaySeconds: 10
           periodSeconds: 20
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 2
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 20
-
+      nodeSelector:
+        kubernetes.io/hostname: master-1
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: frontend
 spec:
-  type: NodePort
   selector:
     app: frontend
   ports:
