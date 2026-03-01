@@ -6,7 +6,6 @@ spec:
   containers:
   - name: pinger
     image: sasidatta/ping_test
-    imagePullPolicy: Never
 ---
 apiVersion: v1
 kind: Pod
@@ -16,7 +15,6 @@ spec:
   containers:
   - name: pinger
     image: sasidatta/ping_test
-    imagePullPolicy: Never
     # Overriding CMD using 'args'
     args: ["google.com"]
 ---
@@ -28,7 +26,6 @@ spec:
   containers:
   - name: pinger
     image: sasidatta/ping_test
-    imagePullPolicy: Never
     # Overriding ENTRYPOINT using 'command'
     # This ignores CMD and runs a shell instead
     command: ["sh"]
