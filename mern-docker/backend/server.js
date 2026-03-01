@@ -11,8 +11,19 @@ app.use(cors({
 
 app.use(express.json());
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    const mongoStatus = mongoose.connection.readyState;
+    // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+    if (mongoStatus === 1) {
+        res.status(200).json({ status: 'UP', database: 'connected' });
+    } else {
+        res.status(503).json({ status: 'DOWN', database: 'disconnected' });
+    }
+});
+
 // Connect to MongoDB
-const mongoUrl = process.env.MONGO_URL || 'mongodb://mongo:27017/mern_db';
+const mongoUrl = process.env.MONGO_URL || 'mongodb://mongo:27017/mern';
 mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true

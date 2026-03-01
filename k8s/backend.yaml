@@ -14,13 +14,31 @@ spec:
     spec:
       containers:
       - name: backend
-        image: sasidatta/mern-docker-backend:5bcc1d2968da5af161d3e975e211c2749acb9145
-        imagePullPolicy: Always
+        image: mern-backend:v2
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 20
         env:
         - name: MONGO_URL
           value: "mongodb://mongo:27017/mern"
+      nodeSelector:
+        kubernetes.io/hostname: master-1
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
 ---
 apiVersion: v1
 kind: Service

@@ -15,7 +15,13 @@ spec:
       containers:
       - name: frontend
         image: sasidatta/mern-docker-frontend:5bcc1d2968da5af161d3e975e211c2749acb9145
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/hostname: master-1
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
         ports:
         - containerPort: 80
 
