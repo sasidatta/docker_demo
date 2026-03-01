@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: pinger
-    image: ping-demo
+    image: sasidatta/ping_test
     imagePullPolicy: Never
 ---
 apiVersion: v1
@@ -15,7 +15,7 @@ metadata:
 spec:
   containers:
   - name: pinger
-    image: ping-demo
+    image: sasidatta/ping_test
     imagePullPolicy: Never
     # Overriding CMD using 'args'
     args: ["google.com"]
@@ -27,7 +27,7 @@ metadata:
 spec:
   containers:
   - name: pinger
-    image: ping-demo
+    image: sasidatta/ping_test
     imagePullPolicy: Never
     # Overriding ENTRYPOINT using 'command'
     # This ignores CMD and runs a shell instead
