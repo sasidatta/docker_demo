@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ping-default
+spec:
+  containers:
+  - name: pinger
+    image: sasidatta/ping_test
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ping-google
+spec:
+  containers:
+  - name: pinger
+    image: sasidatta/ping_test
+    # Overriding CMD using 'args'
+    args: ["google.com"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ping-shell
+spec:
+  containers:
+  - name: pinger
+    image: sasidatta/ping_test
+    # Overriding ENTRYPOINT using 'command'
+    # This ignores CMD and runs a shell instead
+    command: ["sh"]
+    args: ["-c", "echo 'I am a shell now' && sleep 10"]

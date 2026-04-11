@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-demo
+spec:
+  containers:
+  - name: app
+    image: busybox
+    env:
+    - name: STUDENT_NAME
+      value: "sasi"   # 👈 each person changes this
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        echo "Student: $STUDENT_NAME, Pod: $(hostname)" >> /data/host.txt;
+        echo "Written by $STUDENT_NAME";
+        sleep 20
+    volumeMounts:
+    - mountPath: /data
+      name: storage
+
+  volumes:
+  - name: storage
+    hostPath:
+      path: /data01/prasad
+      type: DirectoryOrCreate
