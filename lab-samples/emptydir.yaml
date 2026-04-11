@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: emptydir-demo
+spec:
+  containers:
+  - name: writer
+    image: busybox
+    command: ["/bin/sh", "-c"]
+    args:
+      - while true; do echo "Hello from writer" >> /data/file.txt; sleep 5; done
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+
+  - name: reader
+    image: busybox
+    command: ["/bin/sh", "-c"]
+    args:
+      - while true; do cat /data/file.txt; sleep 5; done
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+
+  volumes:
+  - name: shared-data
+    emptyDir: {}
