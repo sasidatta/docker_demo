@@ -3,13 +3,7 @@ kind: Ingress
 metadata:
   name: mern-ingress
   annotations:
-<<<<<<< HEAD:mern-docker/manifests/ingress.yaml
     kubernetes.io/ingress.class: "nginx"
-=======
-    # Traefik is the default ingress controller in K3s
-    kubernetes.io/ingress.class: "traefik"
-    traefik.ingress.kubernetes.io/router.middlewares: default-strip-api-prefix@kubernetescrd
->>>>>>> f54b0f789c254e373d12228961c924da2f383f22:k8s/ingress.yaml
 spec:
   rules:
   - host: app.sasidatta.com
