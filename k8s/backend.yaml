@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: sasidatta/mern-docker-backend:5bcc1d2968da5af161d3e975e211c2749acb9145
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_USERNAME
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_PASSWORD
+        - name: MONGO_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: MONGO_HOST
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: MONGO_PORT
+        - name: MONGO_DB
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: MONGO_DB_NAME
+        - name: MONGO_URL
+          value: "mongodb://$(DB_USER):$(DB_PASS)@$(MONGO_HOST):$(MONGO_PORT)/$(MONGO_DB)?authSource=admin"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 5000
+    targetPort: 5000
+

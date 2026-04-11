@@ -16,6 +16,7 @@ spec:
         image: mongo:4.4.18
         ports:
         - containerPort: 27017
+<<<<<<< HEAD:mern-docker/manifests/mongo.yaml
         readinessProbe:
           tcpSocket:
             port: 27017
@@ -36,6 +37,19 @@ spec:
             port: 27017
           initialDelaySeconds: 15
           periodSeconds: 20
+=======
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_INITDB_ROOT_PASSWORD
+>>>>>>> f54b0f789c254e373d12228961c924da2f383f22:k8s/mongo.yaml
         volumeMounts:
         - name: mongo-storage
           mountPath: /data/db
