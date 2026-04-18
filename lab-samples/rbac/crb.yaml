@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dashboard-sa-binding
+subjects:
+- kind: ServiceAccount
+  name: dashboard-sa
+  namespace: sasi
+roleRef:
+  kind: ClusterRole
+  name: view   # or cluster-admin for demo
+  apiGroup: rbac.authorization.k8s.io
