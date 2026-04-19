@@ -1,0 +1,4 @@
+k create serviceaccount "sa-gninx"
+kubectl auth can-i get pods --as=system:serviceaccount:sasi:demo-sa
+k create role NAME-pod-reader --verb=get --verb=list --verb=watch --resource=pods
+k create rolebinding NAME-reader-rolebind --role=sasi-pod-reader --serviceaccount=NAME:demo-sa

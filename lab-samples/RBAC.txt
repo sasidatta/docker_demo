@@ -1,0 +1,36 @@
+private key 
+openssl genrsa -out labuser.key 2048
+
+csr 
+openssl req -new -key labuser.key -out labuser.csr -subj "/CN=labuser"
+
+Signed by CA and got public certificate 
+sudo openssl x509 -req \
+-in labuser.csr \
+-CA /etc/kubernetes/pki/ca.crt \
+-CAkey /etc/kubernetes/pki/ca.key \
+-CAcreateserial \
+-out labuser.crt \
+-days 30
+
+Generate kubeconfig
+kubectl config set-cluster kubernetes \
+--certificate-authority=/etc/kubernetes/pki/ca.crt \
+--embed-certs=true \
+--server=https://127.0.0.1:6443 \
+--kubeconfig=labuser.kubeconfig
+
+kubectl config set-credentials labuser \
+--client-certificate=labuser.crt \
+--client-key=labuser.key \
+--embed-certs=true \
+--kubeconfig=labuser.kubeconfig
+
+
+kubectl config set-context lab-context \
+--cluster=kubernetes \
+--user=labuser \
+--kubeconfig=labuser.kubeconfig
+
+kubectl config use-context lab-context \
+--kubeconfig=labuser.kubeconfig
