@@ -17,6 +17,22 @@ ssh ubuntu@<YOUR_MASTER_IP>
 # Terminal 2 — Worker
 ssh ubuntu@<YOUR_WORKER_IP>
 # password: devops123
+
+prasad
+  "s1-master" = "65.2.102.173"
+  "s1-worker" = "13.206.91.61"
+
+supreet 
+  "s2-master" = "43.204.52.173"
+  "s2-worker" = "3.110.17.131"
+  
+navneet
+  "s3-master" = "15.206.106.221"
+  "s3-worker" = "65.1.66.73"
+
+hari -
+
+navneet - 
 ```
 
 ---
