@@ -34,9 +34,15 @@ navneet
   "s3-master" = "15.206.106.221"
   "s3-worker" = "65.1.66.73"
 
-hari -
 
-navneet - 
+hari
+"s1-master" = "44.195.251.74"
+  "s1-worker" = "54.166.94.188"
+
+mayuri
+  "s2-master" = "3.211.4.187"
+  "s2-worker" = "3.218.30.79"
+
 ```
 
 ---
