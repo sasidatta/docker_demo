@@ -18,6 +18,10 @@ ssh ubuntu@<YOUR_MASTER_IP>
 ssh ubuntu@<YOUR_WORKER_IP>
 # password: devops123
 
+
+#Use the command
+passwd
+
 prasad
   "s1-master" = "65.2.102.173"
   "s1-worker" = "13.206.91.61"
