@@ -3,6 +3,71 @@
 > **Lab goal:** Upgrade a running Kubernetes cluster from v1.28 → v1.29 without dropping the demo app
 > **Cluster is already running when you log in.** No installation needed.
 
+
+
+student_clusters = {
+  "mayuri" = {
+    "master" = {
+      "hostname" = "mayuri-master"
+      "private_ip" = "10.0.1.12"
+      "public_ip" = "16.112.162.98"
+      "ssh" = "ssh ubuntu@16.112.162.98"
+    }
+    "worker" = {
+      "demo_app" = "http://18.61.255.123:30080"
+      "hostname" = "mayuri-worker"
+      "private_ip" = "10.0.1.22"
+      "public_ip" = "18.61.255.123"
+      "ssh" = "ssh ubuntu@18.61.255.123"
+    }
+  }
+  "prasad" = {
+    "master" = {
+      "hostname" = "prasad-master"
+      "private_ip" = "10.0.1.11"
+      "public_ip" = "18.61.194.163"
+      "ssh" = "ssh ubuntu@18.61.194.163"
+    }
+    "worker" = {
+      "demo_app" = "http://16.112.168.119:30080"
+      "hostname" = "prasad-worker"
+      "private_ip" = "10.0.1.21"
+      "public_ip" = "16.112.168.119"
+      "ssh" = "ssh ubuntu@16.112.168.119"
+    }
+  }
+  "supreet" = {
+    "master" = {
+      "hostname" = "supreet-master"
+      "private_ip" = "10.0.1.13"
+      "public_ip" = "40.192.12.191"
+      "ssh" = "ssh ubuntu@40.192.12.191"
+    }
+    "worker" = {
+      "demo_app" = "http://18.60.30.86:30080"
+      "hostname" = "supreet-worker"
+      "private_ip" = "10.0.1.23"
+      "public_ip" = "18.60.30.86"
+      "ssh" = "ssh ubuntu@18.60.30.86"
+    }
+  }
+  "swadish" = {
+    "master" = {
+      "hostname" = "swadish-master"
+      "private_ip" = "10.0.1.14"
+      "public_ip" = "40.192.73.246"
+      "ssh" = "ssh ubuntu@40.192.73.246"
+    }
+    "worker" = {
+      "demo_app" = "http://98.130.113.4:30080"
+      "hostname" = "swadish-worker"
+      "private_ip" = "10.0.1.24"
+      "public_ip" = "98.130.113.4"
+      "ssh" = "ssh ubuntu@98.130.113.4"
+    }
+  }
+
+
 ---
 
 ## What's Already Running
