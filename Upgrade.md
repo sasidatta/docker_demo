@@ -4,6 +4,7 @@
 > **Cluster is already running when you log in.** No installation needed.
 
 
+```bash
 
 student_clusters = {
   "mayuri" = {
@@ -66,6 +67,8 @@ student_clusters = {
       "ssh" = "ssh ubuntu@98.130.113.4"
     }
   }
+
+```
 
 
 ---
