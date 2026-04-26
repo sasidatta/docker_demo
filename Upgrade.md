@@ -116,16 +116,6 @@ sudo kubeadm upgrade apply v1.29.x   # replace x with the patch version shown ab
 This upgrades the control plane components (API server, scheduler, controller-manager, etcd).
 Takes ~2-3 minutes. The demo app keeps running during this — control plane upgrade doesn't evict pods.
 
-### Step 3d — Drain the master node
-
-```bash
-# Evict workloads from master, ignore DaemonSets
-kubectl drain s1-master --ignore-daemonsets --delete-emptydir-data
-```
-
-> Watch your second terminal — the PDB ensures 2/3 nginx pods stay up.
-> The drained pod reschedules onto the worker node (if worker has capacity).
-
 ### Step 3e — Upgrade kubelet and kubectl on master
 
 ```bash
