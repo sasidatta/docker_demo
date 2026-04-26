@@ -161,6 +161,9 @@ s1-worker   Ready    <none>          28m   v1.28.x   ← still old
 ### Step 4a — Drain the worker (run on master)
 
 ```bash
+
+kubectl taint nodes --all node-role.kubernetes.io/control-plane
+
 kubectl drain s1-worker --ignore-daemonsets --delete-emptydir-data
 ```
 
