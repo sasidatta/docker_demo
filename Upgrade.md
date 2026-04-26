@@ -193,10 +193,9 @@ sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 ```
 
-### Step 3f — Uncordon the master
+### Step 3f — check master is back
 
 ```bash
-kubectl uncordon s1-master
 
 # Verify master is back
 kubectl get nodes
