@@ -32,13 +32,14 @@ spec:
           periodSeconds: 20
         env:
         - name: MONGO_URL
-          value: "mongodb://mongo:27017/mern"
-      nodeSelector:
-        kubernetes.io/hostname: master-1
-      tolerations:
-      - key: "node-role.kubernetes.io/control-plane"
-        operator: "Exists"
-        effect: "NoSchedule"
+          value: "mongodb://admin:password123@mongo:27017/mern?authSource=admin"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
