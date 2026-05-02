@@ -18,18 +18,18 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          failureThreshold: 5
-        livenessProbe:
-          tcpSocket:
-            port: 5000
-          initialDelaySeconds: 15
-          periodSeconds: 20
+          #readinessProbe:
+          #httpGet:
+          #  path: /health
+          #  port: 5000
+          #initialDelaySeconds: 10
+          #periodSeconds: 10
+          #failureThreshold: 5
+          #livenessProbe:
+          #tcpSocket:
+          #  port: 5000
+          #initialDelaySeconds: 15
+          #periodSeconds: 20
         env:
         - name: MONGO_URL
           value: "mongodb://admin:password123@mongo:27017/mern?authSource=admin"
