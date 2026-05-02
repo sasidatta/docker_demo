@@ -3,3 +3,24 @@ kubectl create configmap democm --from-literal=app=demo --from-literal=live=true
 kubectl create secret generic febsecret --from-literal=month=feb --from-literal=year=2026
 
 kubectl exec -it mongo-pod -- mongosh -u admin -p StrongPass123 --authenticationDatabase admin
+
+
+
+
+-----------------------------------------------------------------------------
+network policies 
+
+
+
+
+kubectl run bb --image=busybox --restart=Never -it -- sh
+nc -zv ip portnumber 
+
+
+kubectl run nginx --image=nginx --restart=Never -it -- sh
+wget -O- http:ip:portnumber
+/ # wget -qO- --timeout=2 http://web.default
+
+default - thats your namespace name 
+
+curl http///web.default
