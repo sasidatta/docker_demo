@@ -1,0 +1,54 @@
+# ---------------------------------------------------------
+# Backend Deployment: Running the Node.js application
+# ---------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: k8s-lab
+  labels:
+    app: backend
+spec:
+  replicas: 2 # Running two copies for high availability
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: mern-backend:v2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        # Pull environment variables from ConfigMap and Secrets
+        envFrom:
+        - configMapRef:
+            name: mern-config
+        - secretRef:
+            name: mern-secrets
+        resources:
+          # Best practice: always define resource constraints
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        # Self-healing: restart the container if it's not responding
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        # Traffic control: don't send requests until the app is ready
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10

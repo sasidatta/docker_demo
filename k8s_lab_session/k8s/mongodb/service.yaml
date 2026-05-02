@@ -1,0 +1,16 @@
+# ---------------------------------------------------------
+# MongoDB Service: Internal load balancer for the database
+# ---------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+  namespace: k8s-lab
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP # Only accessible from inside the cluster

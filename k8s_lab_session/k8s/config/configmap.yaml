@@ -1,0 +1,15 @@
+# ---------------------------------------------------------
+# ConfigMap for non-sensitive application settings
+# ---------------------------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mern-config
+  namespace: k8s-lab
+data:
+  # The URL for the backend to connect to MongoDB
+  # Format: mongodb://<user>:<password>@<service-name>:<port>/<db>?authSource=admin
+  MONGO_URL: "mongodb://mongo-user:password123@mongodb-service:27017/mern?authSource=admin"
+  
+  # The port our backend application listens on (inside the container)
+  PORT: "5000"

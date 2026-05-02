@@ -1,0 +1,14 @@
+# ---------------------------------------------------------
+# PersistentVolumeClaim: Requesting 1GB of storage for MongoDB
+# ---------------------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+  namespace: k8s-lab
+spec:
+  accessModes:
+    - ReadWriteOnce # Only one node can mount this at a time (standard for DBs)
+  resources:
+    requests:
+      storage: 1Gi

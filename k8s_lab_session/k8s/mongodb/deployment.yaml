@@ -1,0 +1,45 @@
+# ---------------------------------------------------------
+# MongoDB Deployment: Running the database container
+# ---------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace: k8s-lab
+  labels:
+    app: mongodb
+spec:
+  replicas: 1 # Only one instance for simple DB setup
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:4.4.18
+        ports:
+        - containerPort: 27017 # Standard MongoDB port
+        env:
+        # Use our Secrets to initialize the root user
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mern-secrets
+              key: MONGO_USER
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mern-secrets
+              key: MONGO_ROOT_PASSWORD
+        volumeMounts:
+        # Mount our persistent storage to the MongoDB data directory
+        - name: mongodb-data
+          mountPath: /data/db
+      volumes:
+      - name: mongodb-data
+        persistentVolumeClaim:
+          claimName: mongodb-pvc

@@ -1,0 +1,7 @@
+# ---------------------------------------------------------
+# Define a separate namespace to isolate our lab resources
+# ---------------------------------------------------------
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k8s-lab

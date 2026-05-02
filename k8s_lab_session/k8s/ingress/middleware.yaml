@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-api
+  namespace: k8s-lab
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
