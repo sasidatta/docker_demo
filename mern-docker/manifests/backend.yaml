@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: mern-backend:local
+        image: sasidatta/mern-docker-backend:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
