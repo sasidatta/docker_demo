@@ -20,9 +20,9 @@ frontend:
 
 backend:
   image:
-    repository: mern-backend
-    tag: local
-    pullPolicy: IfNotPresent
+    repository: sasidatta/mern-docker-backend
+    tag: "f487717bf487aed74e1e50702d9b48c3940f62cf"
+    pullPolicy: Always
   replicas: 1
   service:
     port: 5000
