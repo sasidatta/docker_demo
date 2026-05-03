@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mern-app.backend.fullname" . }}
+  labels:
+    {{- include "mern-app.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backend
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "mern-app.backend.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "mern-app.backend.fullname" . }}
+        app.kubernetes.io/component: backend
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.service.port }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.backend.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.backend.service.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mern-app.mongo.secretName" . }}
+                  key: MONGO_URL
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}

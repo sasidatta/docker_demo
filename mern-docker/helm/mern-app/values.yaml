@@ -1,0 +1,60 @@
+nameOverride: ""
+fullnameOverride: ""
+
+frontend:
+  image:
+    repository: sasidatta/mern-docker-frontend
+    tag: "5bcc1d2968da5af161d3e975e211c2749acb9145"
+    pullPolicy: Always
+  replicas: 5
+  service:
+    type: NodePort
+    port: 80
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+
+backend:
+  image:
+    repository: mern-backend
+    tag: local
+    pullPolicy: IfNotPresent
+  replicas: 1
+  service:
+    port: 5000
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+
+mongo:
+  image:
+    repository: mongo
+    tag: "7.0"
+    pullPolicy: IfNotPresent
+  auth:
+    username: "admin"
+    password: "password123"
+  service:
+    port: 27017
+  persistence:
+    size: 1Gi
+    storageClass: ""
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
+    limits:
+      cpu: "1000m"
+      memory: "512Mi"
+
+networkPolicy:
+  enabled: true
+  ingressNginxNamespace: ingress-nginx
