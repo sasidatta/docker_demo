@@ -33,6 +33,8 @@ Common labels
 */}}
 {{- define "mern-app.labels" -}}
 helm.sh/chart: {{ include "mern-app.chart" . }}
+app.kubernetes.io/name: {{ include "mern-app.name" . }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

@@ -24,10 +24,8 @@ app.get('/health', (req, res) => {
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGO_URL || 'mongodb://mongo:27017/mern_db';
-mongoose.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
+mongoose.connect(mongoUrl)
+    .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
 // Define User schema

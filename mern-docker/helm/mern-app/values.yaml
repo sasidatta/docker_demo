@@ -6,7 +6,7 @@ frontend:
     repository: sasidatta/mern-docker-frontend
     tag: "5bcc1d2968da5af161d3e975e211c2749acb9145"
     pullPolicy: Always
-  replicas: 5
+  replicas: 2
   service:
     type: NodePort
     port: 80
@@ -21,7 +21,7 @@ frontend:
 backend:
   image:
     repository: sasidatta/mern-docker-backend
-    tag: "f487717bf487aed74e1e50702d9b48c3940f62cf"
+    tag: "latest"
     pullPolicy: Always
   replicas: 1
   service:
