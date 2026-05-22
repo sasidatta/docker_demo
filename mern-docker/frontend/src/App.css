@@ -36,6 +36,22 @@ body {
   }
 }
 
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.version-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background-color: var(--primary-color);
+  color: white;
+  letter-spacing: 0.05em;
+}
+
 .header {
   grid-column: 1 / -1;
   text-align: left; /* Aligned left for more structured feel */

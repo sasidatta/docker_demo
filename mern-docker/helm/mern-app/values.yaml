@@ -4,7 +4,7 @@ fullnameOverride: ""
 frontend:
   image:
     repository: sasidatta/mern-docker-frontend
-    tag: "5bcc1d2968da5af161d3e975e211c2749acb9145"
+    tag: "latest"
     pullPolicy: Always
   replicas: 2
   service:

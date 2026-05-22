@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
+const VERSION = import.meta.env.VITE_APP_VERSION || 'dev';
+const PRIMARY_COLOR = import.meta.env.VITE_PRIMARY_COLOR || '#111827';
+
 function App() {
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({ email: '', mobile: '' });
   const [status, setStatus] = useState({ type: '', msg: '' });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--primary-color', PRIMARY_COLOR);
+    document.documentElement.style.setProperty('--primary-hover', PRIMARY_COLOR + 'cc');
+  }, []);
 
   const fetchUsers = async () => {
     try {
@@ -52,7 +60,10 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-        <h1>User Management</h1>
+        <div className="header-top">
+          <h1>User Management</h1>
+          <span className="version-badge">{VERSION}</span>
+        </div>
         <p>Production-Ready MERN Stack Demo</p>
       </header>
 

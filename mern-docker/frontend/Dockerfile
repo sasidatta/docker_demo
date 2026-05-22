@@ -4,6 +4,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ARG VERSION=dev
+ARG PRIMARY_COLOR=#111827
+ENV VITE_APP_VERSION=$VERSION
+ENV VITE_PRIMARY_COLOR=$PRIMARY_COLOR
 RUN npm run build
 
 # Production stage
