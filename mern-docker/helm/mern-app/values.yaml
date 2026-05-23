@@ -1,10 +1,9 @@
 nameOverride: ""
 fullnameOverride: ""
-
 frontend:
   image:
     repository: sasidatta/mern-docker-frontend
-    tag: "latest"
+    tag: "v1"
     pullPolicy: Always
   replicas: 2
   service:
@@ -17,11 +16,10 @@ frontend:
     limits:
       cpu: "500m"
       memory: "256Mi"
-
 backend:
   image:
     repository: sasidatta/mern-docker-backend
-    tag: "latest"
+    tag: "v1"
     pullPolicy: Always
   replicas: 1
   service:
@@ -33,7 +31,6 @@ backend:
     limits:
       cpu: "500m"
       memory: "256Mi"
-
 mongo:
   image:
     repository: mongo
@@ -54,7 +51,6 @@ mongo:
     limits:
       cpu: "1000m"
       memory: "512Mi"
-
 networkPolicy:
   enabled: true
   ingressNginxNamespace: ingress-nginx
