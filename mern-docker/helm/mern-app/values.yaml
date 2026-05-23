@@ -3,7 +3,7 @@ fullnameOverride: ""
 frontend:
   image:
     repository: sasidatta/mern-docker-frontend
-    tag: "v2"
+    tag: "v4"
     pullPolicy: Always
   replicas: 2
   service:
@@ -19,7 +19,7 @@ frontend:
 backend:
   image:
     repository: sasidatta/mern-docker-backend
-    tag: "v2"
+    tag: "v4"
     pullPolicy: Always
   replicas: 1
   service:
