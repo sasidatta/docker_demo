@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./mern-docker/frontend
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: |
             ${{ env.DOCKERHUB_USERNAME }}/mern-docker-frontend:${{ steps.meta.outputs.version }}
@@ -61,7 +61,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./mern-docker/backend
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: |
             ${{ env.DOCKERHUB_USERNAME }}/mern-docker-backend:${{ steps.meta.outputs.version }}
